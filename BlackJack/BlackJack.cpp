@@ -8,7 +8,7 @@ public:
     enum suit { SPADES, HEARTS, CLUBS, DIAMONDS };
     enum rnk { ACE = 1, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN, JACK, QUEEN, KING };
 
-    Card(rnk rk = ACE, suit st = SPADES, bool ps = true) : cardRank(rk), cardSuit(st), cardPos(ps) {
+    Card(rnk cardRank = ACE, suit cardSuit = SPADES, bool cardPos = true) : cardRank(cardRank), cardSuit(cardSuit), cardPos(cardPos) {
     }
 
     void Flip() {
@@ -55,6 +55,23 @@ public:
     }
 protected:
     vector<Card*> cardsArr;
+};
+
+class GenericPlayer : public Hand {
+public:
+    GenericPlayer(const string& const name="") : name(name) {
+    }
+    virtual ~GenericPlayer() {
+    }
+    virtual bool IsHitting() const = 0;
+    bool isBoosted() const {
+        return GetTotal() > 21;
+    }
+    void Bust() const {
+        cout << name << " busts" << endl;
+    }
+protected:
+    string name;
 };
 
 int main()
